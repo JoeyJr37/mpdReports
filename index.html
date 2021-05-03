@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MPD Report Generator</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Orelega+One&family=Oswald:wght@200&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <main class="main">
+        <header class="header, main-font">
+        <h1> MPD Report Generator</h1>
+        <section id="container" class="container"> 
+
+            <div class="uploads">
+                <div class="upload-container">
+                    <h3><label for="input-file">Upload the Recurring Commitments file: </label></h3>
+                    <input class="file-input" type="file"
+                        id="recurring-file" name="recurring-file"></br>
+                </div>
+
+                <div class="upload-container">
+                    <h3><label for="one-time-file">Upload the One-time Payments file: </label></h3>
+                    <input class="file-input" type="file"
+                            id="one-time-file" name="one-time-file">
+                </div>
+            </div>
+
+            <div class="goals">
+                <div>
+                    <h3><label for="monthly-goal">Monthly Goal: </label></h3>
+                    <input type="text" id="monthly-goal" name="monthly-goal">
+                </div>
+
+                <div>
+                    <h3><label for="one-time-goal">One-time Goal: </label></h3>
+                    <input type="text" id="one-time-goal" name="one-time-goal">
+                </div>
+                <div class="button-border">
+                    <button class="percentageButton" onclick ="calculateAndDisplayPercentages()"> 
+                        Calculate Percentage </button>
+                </div>
+            </div>
+        </section>
+        <section class="static-goals">
+            <table class="static-goals-table">
+                <tr>
+                    <th>Name</th>
+                    <th>Monthly Goal</th>
+                    <th>One Time Goal</th>
+                </tr>
+                <tr>
+                    <td>Scott & Barbara Ingram</td>
+                    <td> $3923 </td>
+                    <td> $9020 </td>
+                </tr>
+                <tr>
+                    <td>Michael & Leslie Nicosia</td>
+                    <td> $4616 </td>
+                    <td> $42,350 </td>
+                </tr>
+                <tr>
+                    <td>Alexia Tsimogiannis</td>
+                    <td> $1347.96 </td>
+                    <td> $33,453.42 </td>
+                </tr>
+                <tr>
+                    <td>CJ & Rita Gomez</td>
+                    <td> $5800 </td>
+                    <td> None </td>
+                </tr>
+                <tr>
+                    <td>Zach & Alexis Kaufman</td>
+                    <td> $4661.12 </td>
+                    <td> $59570.20 </td>
+                </tr>
+                <tr>
+                    <td>Trina Hinton</td>
+                    <td> $2013.16 </td>
+                    <td> None </td>
+                </tr>
+                <tr>
+                    <td>Andrew Estrada</td>
+                    <td> $1596.04 </td>
+                    <td> None </td>
+                </tr>
+                <tr>
+                    <td>Alex Hill</td>
+                    <td> $3369.22 </td>
+                    <td> $26,843.06 </td>
+                </tr>
+                <tr>
+                    <td>Threshold</td>
+                    <td> None </td>
+                    <td> None </td>
+                </tr>
+            </table>
+        </section>
+        <section class="button-section">
+            <button class="pdf-download" onclick="generatePDF()">Download PDF Report</button>
+            </section>
+    </header>
+
+
+    
+        <section id="report" class="report">
+            <h2>MPD Report</h2>
+            <p>Disclaimer: Please note that the amounts displayed below are estimates based on 3% fees for 
+                all donations received via a credit card or bank account. The actual fees may vary from 2% - 3%
+                based on the method of payment. If you have any questions about your report please email:
+                Joey@antiochhouston.com
+            </p>
+            <section id="financials" class="financials">
+                
+                <div class="border">
+                <h4 id="monthly-goal-value">Monthly Goal: </h4>
+                </div>
+                
+                <div class="border">
+                <h4 id="monthly-available">Monthly Available: </h4></div>
+
+                <div class="border">
+                    <h4 id="monthly-percentage">Percentage Monthly: </h4></div>
+                
+                <div class="border">
+                <h4 id="one-time-goal-value">One-time Goal: </h4>
+                </div>
+
+                <div class="border">
+                <h4 id="one-time-available">One-time Available: </h4></div>
+
+                <div class="border">
+                    <h4 id="one-time-percentage">Percentage One-Time: </h4></div>
+            </section>
+
+            <section id="donors" class="donors">
+                <div class="donor-container">
+                    <h2 class="donor-titles">Recurring donors</h2>
+                    <table id="recurring-donors">
+                        <tr id="header-row">
+                            <th>Name</th>
+                            <th>Gift Amount</th>
+                            <th>Email</th>
+                            <th>Phone #</th>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="donor-container">
+                    <h2 class="donor-titles">One-time donors</h2>
+                    <table id="one-time-donors">
+                        <tr id="one-time-donor-header-row">
+                            <th>Name</th>
+                            <th>Gift Amount</th>
+                            <th>Email</th>
+                            <th>Phone #</th>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+        <script src="main.js"></script>
+        <script src="html2pdf.js"></script>
+        <script>
+            function generatePDF() {
+              // Choose the element that our invoice is rendered in.
+              const element = document.getElementById("report");
+              // Choose the element and save the PDF for our user.
+              html2pdf()
+                .from(element)
+                .save();
+            };
+
+            const monthlyGoalBox = document.getElementById("monthly-percentage");
+            const oneTimeGoalBox = document.getElementById("one-time-percentage");
+
+
+            function calculatePercentages(goal, currentValue) {
+                let numberGoal = Number(goal);
+                let numberValue = Number(currentValue);
+                let percentage = numberValue / numberGoal;
+                let roundedPercentage = Math.round((percentage + Number.EPSILON) * 100) / 100;
+                return roundedPercentage;
+            };
+
+            function displayPercentages(value, element) {
+                let newElement = document.createElement("div");
+                newElement.setAttribute('class', 'bold');
+                newElement.innerHTML = `${value}%`;
+                element.append(newElement);
+            };
+
+
+            function displayGoals() {
+                const monthlyGoal = document.getElementById("monthly-goal").value;
+                const oneTimeGoal = document.getElementById("one-time-goal").value;
+
+                console.log(monthlyGoal);
+                console.log(oneTimeGoal);
+
+                const monthlyGoalValue = document.getElementById("monthly-goal-value");
+                const oneTimeGoalValue = document.getElementById("one-time-goal-value");
+
+                let monthlyAmount = document.createElement("div");
+                monthlyAmount.innerHTML = `$ ${monthlyGoal}`;
+                monthlyAmount.setAttribute('class', 'bold');
+                monthlyGoalValue.append(monthlyAmount);
+
+                let oneTimeAmount = document.createElement("div");
+                oneTimeAmount.innerHTML = `$ ${oneTimeGoal}`;
+                oneTimeAmount.setAttribute('class', 'bold');
+                oneTimeGoalValue.append(oneTimeAmount);
+            }
+
+            function calculateAndDisplayPercentages() {
+                displayGoals();
+
+                const monthlyGoal = document.getElementById("monthly-goal").value;
+                const oneTimeGoal = document.getElementById("one-time-goal").value;
+                
+                const monthlyAvailable = document.getElementById("monthly-available").firstElementChild.innerHTML.replace("$", 0);
+                let monthlyValue = calculatePercentages(monthlyGoal,monthlyAvailable );
+
+                const oneTimeAvailable = document.getElementById("one-time-available").firstElementChild.innerHTML.replace("$", 0);
+                let oneTimeValue = calculatePercentages(oneTimeGoal, oneTimeAvailable);
+
+                displayPercentages(monthlyValue, monthlyGoalBox);
+                displayPercentages(oneTimeValue, oneTimeGoalBox);
+            }
+
+          </script>
+    </body>
+
+</html>
