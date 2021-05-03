@@ -32,14 +32,6 @@ function formatDonorInfo(spreadSheet, column_letter,i){
   return text_cell;
 }
 
-function formatDonation(cellToBeFormatted) {
-  let newCell = document.createElement('div');
-  newCell.innerHTML = `$${cellToBeFormatted.innerHTML}`;
-  newCell.setAttribute('class', 'bold');
-  //console.log(newCell);
-  return newCell;
-}
-
 function getDonorInfo(i, spreadSheet, donor_info_array) {
   // name in cell K, email in cell L, phone in cell S
   // one-time: name in cell J, email in cell T, phone in cell S, donation in C
@@ -88,7 +80,8 @@ function addDonorsToTable(donor_array) {
     donorTable.after(table_row);
     table_row.appendChild(donor.name_cell);
     let donation = document.createElement('td');
-    donation.innerHTML = `$${donor.donation_cell.innerHTML}`;
+    let donation_value = donor.donation_cell.innerHTML - (donor.donation_cell.innerHTML * .03);
+    donation.innerHTML = `$${donation_value}`;
     donation.setAttribute('class', 'bold');
     donor.name_cell.after(donation);
     donation.after(donor.email_cell);
