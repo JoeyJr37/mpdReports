@@ -122,7 +122,7 @@ function handleFile(e) {
         let modified_value_array = [];
         let donor_array = [];
         /* loop to get all the needed values*/
-        for (let i = 3; i< 100; i++) {
+        for (let i = 3; i< 1000; i++) {
           getDonorInfo(i, worksheet, donor_array);
         
           let address_of_cell = 'F' + i;
