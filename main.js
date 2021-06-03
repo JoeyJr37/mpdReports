@@ -63,11 +63,11 @@ function getDonorInfo(i, spreadSheet, donor_info_array) {
     let identifying_address = 'A' + 1;
 
     if (spreadSheet[identifying_address].v === "Recurring Gift Records") {
-      if (name_cell.innerHTML != "undefined") {
+      if (name_cell.innerHTML !== "undefined") {
         donor_info_array.push(recurring_donor_info);
       };
     } else {
-      if (one_time_name.innerHTML != "undefined"){
+      if (one_time_name.innerHTML !== "undefined"){
         donor_info_array.push(one_time_donor_info);
       };
     };
@@ -129,7 +129,7 @@ function handleFile(e) {
           let frequency = 0;
           let frequency_address = 'E' + i;
           let frequency_cell = worksheet[frequency_address];
-          if (frequency_cell != undefined){
+          if (frequency_cell !== undefined){
             if (frequency_cell.v === 'Monthly'){
               frequency = 1;
             } else if (frequency_cell.v === 'Weekly'){
@@ -146,7 +146,7 @@ function handleFile(e) {
           let desired_value = (desired_cell ? desired_cell.v : undefined);
         
           /* modify value with calculation*/
-          if (desired_value != undefined) {
+          if (desired_value !== undefined) {
             let modified_value = (desired_value - (desired_value * .03)) * frequency;
             modified_value_array.push(modified_value);
           };

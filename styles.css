@@ -88,6 +88,12 @@ tr {
 
 button {
     border-radius: 10px;
+    background-color: black;
+    color: white;
+}
+
+button:hover{
+    cursor: pointer;
 }
 
 .main-font {

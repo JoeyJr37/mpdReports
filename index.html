@@ -231,6 +231,20 @@
                 displayPercentages(monthlyValue, monthlyGoalBox);
                 displayPercentages(oneTimeValue, oneTimeGoalBox);
             }
+            
+            const feedback = (e) =>{
+                e.target.style.backgroundColor = 'white';
+                e.target.style.color = 'black';
+                setTimeout(function(){
+                    e.target.style.backgroundColor = 'black';
+                    e.target.style.color = 'white';
+                }, 50)
+            }
+
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', feedback);
+            })
 
           </script>
     </body>
