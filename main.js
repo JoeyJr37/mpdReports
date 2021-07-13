@@ -33,13 +33,14 @@ function formatDonorInfo(spreadSheet, column_letter,i){
 }
 
 function getDonorInfo(i, spreadSheet, donor_info_array) {
-  // name in cell K, email in cell L, phone in cell S
+  // name in cell K, email in cell L, phone in cell S, valid or invalid in cell J
   // one-time: name in cell J, email in cell T, phone in cell S, donation in C
 
     let donation_cell = formatDonorInfo(spreadSheet, 'F', i);
     let name_cell = formatDonorInfo(spreadSheet, 'K', i);
     let email_cell = formatDonorInfo(spreadSheet, 'L', i);
     let phone_cell = formatDonorInfo(spreadSheet, 'S', i);
+    let valid_cell = formatDonorInfo(spreadSheet, 'J', i);
 
     let one_time_donation = formatDonorInfo(spreadSheet, 'C', i);
     let one_time_name = formatDonorInfo(spreadSheet, 'J', i);
@@ -63,7 +64,7 @@ function getDonorInfo(i, spreadSheet, donor_info_array) {
     let identifying_address = 'A' + 1;
 
     if (spreadSheet[identifying_address].v === "Recurring Gift Records") {
-      if (name_cell.innerHTML !== "undefined") {
+      if (name_cell.innerHTML !== "undefined" && valid_cell.innerText === 'Valid') {
         donor_info_array.push(recurring_donor_info);
       };
     } else {
